@@ -47,8 +47,7 @@ class dataFile:
         names = []
         dataArray = data.to_numpy()
         for i in range(int(len(data.columns)/2)):
-            i+=1
-            names.append(dataArray[0][2*i])
+            names.append(dataArray[0][2*i+1])
         return names
 
 
