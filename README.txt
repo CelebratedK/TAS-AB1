@@ -11,4 +11,6 @@ Then you can create new files, delete files or modify existing ones.
 
 After you are done, you can commit your changes with a new version number.
 Just make sure that you don't have two people editing the same file at the same time,
-otherwise we end up with two up-todate versions
+otherwise we end up with two up-to date versions
+
+henlo
