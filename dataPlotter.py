@@ -55,7 +55,11 @@ class dataFile:
 
 def main():
     a = dataFile("Baffle.csv")
+    b = dataFile("Primary_mirror.csv")
+    c = dataFile("Secondary_mirror.csv")
     a.plotAllGraphs(units='K')
+    b.plotAllGraphs(units='K')
+    c.plotAllGraphs(units='K')
     print(a.getArrayNames())
 
 if __name__ == "__main__":
