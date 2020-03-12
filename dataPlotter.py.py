@@ -5,7 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import scipy as scp
 
-class universe:
+class universe: #Write universal constants here. You can use them anywhere in the code with: universe.constant
+    constant = 1
     kelvin = 273.15
 
 class dataFile:
@@ -14,7 +15,7 @@ class dataFile:
         self.dataArray = self.getDataArray()
         self.dataArrayKelvin = self.getdataArrayKelvin()
         self.timeStepHours = self.dataArray[0][0][1] / 3600 #Take first time index, convert it from seconds to hours
-        self.timeStepSeconds = self.dataArray[0][0][1]
+        self.timeStepSeconds = self.dataArray[0][0][1]      #I took these to try make a fourrier transform of the data, but didn't go well
 
     def getDataArray(self):
         data = pd.read_csv(self.filePath,skiprows=5)
@@ -40,15 +41,23 @@ class dataFile:
             plt.plot(x,y)
         
         plt.show()
+    
+    def getArrayNames(self):    #generate a list of the element names from the CSV file
+        data = pd.read_csv(self.filePath,skiprows=1)
+        names = []
+        dataArray = data.to_numpy()
+        for i in range(int(len(data.columns)/2)):
+            i+=1
+            names.append(dataArray[0][2*i])
+        return names
 
 
     
 
 def main():
     a = dataFile("Baffle.csv")
-    b = dataFile("Primary_mirror.csv")
     a.plotAllGraphs(units='K')
-    b.plotAllGraphs(units='K')
+    print(a.getArrayNames())
 
 if __name__ == "__main__":
     main()
