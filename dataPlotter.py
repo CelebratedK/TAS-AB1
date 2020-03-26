@@ -8,6 +8,7 @@ import scipy as scp
 class universe: #Write universal constants here. You can use them anywhere in the code with: universe.constant
     constant = 1
     kelvin = 273.15
+    filenames = ["Baffle.csv","Primary_mirror.csv","Secondary_mirror.csv"]
 
 class dataFile:
     def __init__(self, fileName, filePath="AB1"):
@@ -39,8 +40,6 @@ class dataFile:
             x = data[0]
             y = data[1]
             plt.plot(x,y)
-        
-        plt.show()
     
     def getArrayNames(self):    #generate a list of the element names from the CSV file
         data = pd.read_csv(self.filePath,skiprows=1)

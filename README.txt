@@ -9,8 +9,8 @@ The first step is to create a github account, then send it on whatsapp
 To edit or add new files, go in Repository --> View in explorer
 Then you can create new files, delete files or modify existing ones.
 
-After you are done, you can commit your changes with a new version number.
+After you are done, you can commit your changes with a new version description.
 Just make sure that you don't have two people editing the same file at the same time,
 otherwise we end up with two up-to date versions
 
-henlo
+*Please don't just write a number, I used to do that and it's not clear what each version is
