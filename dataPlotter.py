@@ -66,12 +66,27 @@ class dataFile:
             indicesList.append(argrelextrema(iterArray,np.less))
         return indicesList
 
-    
+    def giveMeASpline(self): #returns an array of scipy spline functions
+        tempArray = self.dataArray
+        newArray = []
+        for dataset in tempArray:
+            spline = scp.interpolate.CubicSpline(dataset[0],dataset[1])
+            newArray.append(spline)
+        return newArray
+
+    def newTimeArray(self, nFactor): #nFactor=3 will make a time array with 3 times as many points
+        timeArray = self.dataArray[0][0]
+        maxTime = timeArray[-1]
+        nDataPoints = len(timeArray)
+        newTimeArray = np.linspace(0,maxTime, nFactor * nDataPoints)
+        return newTimeArray
 
 def main(): #Just doodle code here to test is my functions work xd. Just ignore this
-    a = dataFile("Baffle.csv")
+    a = dataFile(universe.filenames[0])
+    splines = a.giveMeASpline()
+    x = a.newTimeArray(4)
     plt.plot(a.dataArray[0][0],a.dataArray[0][1])
-    print(a.dataArray[0][0][a.localMaxima[0]])
+    plt.plot(x, splines[0](x))
     plt.show()
 
 if __name__ == "__main__": #This will only run if you run this scirpt directly; won't run if you import it in another program
