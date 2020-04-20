@@ -18,7 +18,7 @@ class dataFile:
         self.dataArrayKelvin = self.getdataArrayKelvin()
         self.timeStepHours = self.dataArray[0][0][1] / 3600 #Take first time index, convert it from seconds to hours
         self.timeStepSeconds = self.dataArray[0][0][1]      #I took these to try make a fourrier transform of the data, but didn't go well ;(
-        self.localMaximaDiscrete = self.getDiscreteMaxima()
+        self.localMaximaDiscrete = self.getDiscreteMaxima() #returns list of indices
         self.localMinimaDiscrete = self.getDiscreteMinima()
 
     def getDataArray(self):
@@ -66,6 +66,23 @@ class dataFile:
             indicesList.append(argrelextrema(iterArray,np.less))
         return indicesList
 
+    def indicesToVals(self,indexArray):
+        output=[]
+        for i, lst in enumerate(indexArray):
+            vals = []
+            time = []
+            for element in lst:
+                vals.append(self.dataArray[i][1][element])
+                time.append(self.dataArray[i][0][element])
+            output.append([time,vals])
+        return output
+
+    def getDiscreteMaximaVals(self):
+        return self.indicesToVals(self.localMaximaDiscrete)
+
+    def getDiscreteMinimaVals(self):
+        return self.indicesToVals(self.localMinimaDiscrete)
+
     def giveMeASpline(self): #returns an array of scipy spline functions
         tempArray = self.dataArray
         newArray = []
@@ -81,13 +98,20 @@ class dataFile:
         newTimeArray = np.linspace(0,maxTime, nFactor * nDataPoints)
         return newTimeArray
 
+def createDataFiles():
+    baffle = dataFile(universe.filenames[0])
+    pMirror = dataFile(universe.filenames[1])
+    sMirror = dataFile(universe.filenames[2])
+    return (baffle, pMirror, sMirror)
+
 def main(): #Just doodle code here to test is my functions work xd. Just ignore this
     a = dataFile(universe.filenames[0])
     splines = a.giveMeASpline()
-    x = a.newTimeArray(4)
-    plt.plot(a.dataArray[0][0],a.dataArray[0][1])
-    plt.plot(x, splines[0](x))
+    x = a.newTimeArray(5)
+    plt.plot(a.dataArray[1][0],a.dataArray[1][1])
+    plt.plot(x, splines[1](x))
     plt.show()
+    print(a.getDiscreteMaximaVals())
 
 if __name__ == "__main__": #This will only run if you run this scirpt directly; won't run if you import it in another program
     main()
