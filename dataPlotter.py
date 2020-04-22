@@ -23,6 +23,7 @@ class dataFile:
 
     def getDataArray(self):
         data = pd.read_csv(self.filePath,skiprows=5)
+        data.drop(data.tail(1).index, inplace=True)
         dataArray = np.transpose(data.to_numpy())
         dataArray = np.split(dataArray,len(dataArray)/2)
         return dataArray #dataarray has format [[time,value],[time,value]....]
@@ -109,7 +110,7 @@ def main(): #Just doodle code here to test is my functions work xd. Just ignore 
     splines = a.giveMeASpline()
     x = a.newTimeArray(5)
     plt.plot(a.dataArray[1][0],a.dataArray[1][1])
-    plt.plot(x, splines[1](x))
+    plt.plot(x, splines[1](x,1))
     plt.show()
     print(a.getDiscreteMaximaVals())
 
