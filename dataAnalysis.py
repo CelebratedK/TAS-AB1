@@ -6,7 +6,7 @@ def withinTwoPercent(a,b):
     return abs(1 - a/b) < 0.02
 
 def determinePeriod(array):
-    guess = array[1]-array[0]
+    guess = array[2]-array[1]
     guesses = []
     for i in range(len(array)-1):
         value = withinTwoPercent(array[i+1]-array[i], guess)

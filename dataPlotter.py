@@ -10,12 +10,14 @@ class universe: #Write universal constants here. You can use them anywhere in th
     constant = 1
     kelvin = 273.15
     filenames = ["Baffle.csv","Primary_mirror.csv","Secondary_mirror.csv"]
+    orbitalPeriod = 5674.576416015625 #seconds, according to the discrete data
+    orbitIndex = 80
 
 class dataFile:
     def __init__(self, fileName, filePath="AB1"):
         self.filePath = f"{filePath}\{fileName}"
-        self.dataArray = self.getDataArray()
-        self.dataArrayKelvin = self.getdataArrayKelvin()
+        self.dataArrayCelsius = self.getDataArray()
+        self.dataArray = self.getdataArrayKelvin()
         self.timeStepHours = self.dataArray[0][0][1] / 3600 #Take first time index, convert it from seconds to hours
         self.timeStepSeconds = self.dataArray[0][0][1]      #I took these to try make a fourrier transform of the data, but didn't go well ;(
         self.localMaximaDiscrete = self.getDiscreteMaxima() #returns list of indices
@@ -34,11 +36,11 @@ class dataFile:
             element[1]+=universe.kelvin
         return KelvinArray
 
-    def plotAllGraphs(self, units='C'):
+    def plotAllGraphs(self, units='K'):
         if units == 'K':
-            plotArray = self.dataArrayKelvin
-        elif units == 'C':
             plotArray = self.dataArray
+        elif units == 'C':
+            plotArray = self.dataArrayCelsius
 
         for data in plotArray:
             x = data[0]
@@ -106,12 +108,7 @@ def createDataFiles():
     return (baffle, pMirror, sMirror)
 
 def main(): #Just doodle code here to test is my functions work xd. Just ignore this
-    a = dataFile(universe.filenames[0])
-    splines = a.giveMeASpline()
-    x = a.newTimeArray(5)
-    plt.plot(a.dataArray[1][0],a.dataArray[1][1])
-    plt.plot(x, splines[1](x,1))
-    plt.show()
+    a = dataFile(universe.filenames[1])
     print(a.getDiscreteMaximaVals())
 
 if __name__ == "__main__": #This will only run if you run this scirpt directly; won't run if you import it in another program
