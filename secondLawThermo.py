@@ -21,8 +21,10 @@ def fourrierTransform(dataArray): #expects [[timelist],[datalist]]
     yf = fft(y)
     xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
     
-    plt.plot(xf, 2.0/N * np.abs(yf[0:N//2]))
+    plt.plot(xf, 2.0/N * np.abs(yf[0:N//2]),marker='x')
     plt.grid()
+    plt.xlabel("Frequency (Hz)")
+    plt.ylabel("Amplitude (-)")
     plt.show()
 
 def main(): #Just doodle code here to test is my functions work xd. Just ignore this
@@ -35,7 +37,6 @@ def main(): #Just doodle code here to test is my functions work xd. Just ignore 
         plt.plot(newDataPoints, dydx(newDataPoints))
         roots = dydx.roots()
         print(roots)
-        input()
 
     plt.legend(baffle.getArrayNames(),loc='upper left')
     plt.xlabel("Time (s)")
@@ -46,7 +47,7 @@ def main(): #Just doodle code here to test is my functions work xd. Just ignore 
     xtest = baffle.newTimeArray(5)
     ytest = splines[0](xtest,1)
 
-    fourrierTransform(np.array([xtest/3600,ytest]))
+    fourrierTransform(np.array([xtest,ytest]))
 
 
 
