@@ -15,6 +15,7 @@ class universe: #Write universal constants here. You can use them anywhere in th
 
 class dataFile:
     def __init__(self, fileName, filePath="AB1"):
+        self.name = fileName
         self.filePath = f"{filePath}\{fileName}"
         self.dataArrayCelsius = self.getDataArray()
         self.dataArray = self.getdataArrayKelvin()

@@ -6,8 +6,8 @@ baffle, pMirror, sMirror = dataPlotter.createDataFiles()
 
 def main(df):
     for component in df.dataArray:
-        d = component[1] #dataArray
-        t = component[0] #dataArray
+        d = component[1] #dataArray data
+        t = component[0] #dataArray time
         convergenceCriterion = []
         for index in range(round(len(d)/80)):
             try:
