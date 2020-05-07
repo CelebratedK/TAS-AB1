@@ -34,6 +34,12 @@ def getOrbitDeltaT(list):
 
     return deltaTList
 
+def linearRegress(deltaT):
+    m = (deltaT[0] - deltaT[-1])/len(deltaT)
+    c = deltaT[0]
+    orbitsToConverge = c/m
+    print(f"This element would take approximately {orbitsToConverge} orbits to fully converge\n")
+
 def plotOrbitTemperatureChange(DeltaT): #Expects a 1d list
     x = range(len(DeltaT))
     plt.plot(x,DeltaT)
@@ -66,6 +72,8 @@ def main(dataFile):
         
         deltaT = lazyFix(deltaT,dataFile.name)
 
+        linearRegress(getOrbitDeltaT(deltaT))
+        
         partialDeltaT.append(getOrbitDeltaT(deltaT))
 
     print(partialDeltaT)
@@ -78,9 +86,6 @@ def main(dataFile):
         lastdeltaT = orbit[-1]
         finaldeltaTlist.append(lastdeltaT)
     
-
-    for i in finaldeltaTlist:
-        print(f"The last change in temperature was {i} Kelvins \n")
 
     plt.show()
 

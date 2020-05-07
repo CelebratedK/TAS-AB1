@@ -61,6 +61,7 @@ class dataFile:
         for array in self.dataArray:
             iterArray = array[1]
             indicesList.append(argrelextrema(iterArray,np.greater)) #argrelextrema is a wacky scipy function, returns the indices of all extrema in a signal
+
         return indicesList
     
     def getDiscreteMinima(self): #same function as above, but for local minima
@@ -70,15 +71,28 @@ class dataFile:
             indicesList.append(argrelextrema(iterArray,np.less))
         return indicesList
 
+
+    def closeTo(self,a,b):
+        return round(a) == round(b)
+
     def indicesToVals(self,indexArray):
         output=[]
         for i, lst in enumerate(indexArray):
             vals = []
             time = []
             for element in lst:
-                vals.append(self.dataArray[i][1][element])
-                time.append(self.dataArray[i][0][element])
-            output.append([time,vals])
+                v=self.dataArray[i][1][element]
+                t=self.dataArray[i][0][element]
+                tempvlist = []
+                temptlist = []
+                for index, val in enumerate(v):
+                    try:
+                        if self.closeTo(val,max(self.dataArray[i][1])):
+                            temptlist.append(t[index])
+                            tempvlist.append(val)
+                    except Exception:
+                        pass
+            output.append([temptlist,tempvlist])
         return output
 
     def getDiscreteMaximaVals(self):
@@ -109,7 +123,7 @@ def createDataFiles():
     return (baffle, pMirror, sMirror)
 
 def main(): #Just doodle code here to test is my functions work xd. Just ignore this
-    a = dataFile(universe.filenames[1])
+    a = dataFile(universe.filenames[0])
     print(a.getDiscreteMaximaVals())
 
 if __name__ == "__main__": #This will only run if you run this scirpt directly; won't run if you import it in another program

@@ -37,7 +37,7 @@ def main():
     t = baffle.newTimeArray(5)
     d = splines[index](t,1)
 
-    fourrierTransform([t,d],inverseXAxis=False)
+    fourrierTransform([t,d],inverseXAxis=True)
 
 
     plt.title(names[index])
