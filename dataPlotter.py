@@ -73,7 +73,7 @@ class dataFile:
 
 
     def closeTo(self,a,b):
-        return round(a) == round(b)
+        return abs(a-b) <= 1.1
 
     def indicesToVals(self,indexArray):
         output=[]
@@ -85,13 +85,16 @@ class dataFile:
                 t=self.dataArray[i][0][element]
                 tempvlist = []
                 temptlist = []
+                m = max(self.dataArray[i][1])
                 for index, val in enumerate(v):
                     try:
-                        if self.closeTo(val,max(self.dataArray[i][1])):
+                        if self.closeTo(val,m):
                             temptlist.append(t[index])
                             tempvlist.append(val)
+                        m = tempvlist[-1]
                     except Exception:
                         pass
+                    
             output.append([temptlist,tempvlist])
         return output
 

@@ -53,7 +53,7 @@ for i in range(len(delaylist_pmirror)):
 #print(averagelist)
         
 #print(max(delaylist_pmirror))
-print(len(bafflemaxima[6][0][0]))               
+print(len(bafflemaxima[6][0]))               
                 
             
       
